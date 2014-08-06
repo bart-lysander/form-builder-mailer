@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<name>Form Builder Mailer</name>
+	<version>1.0.1</version>
+	<requirements>
+		<minimum_version>3.6.0</minimum_version>
+	</requirements>
+	<description>
+		<![CDATA[Form Builder Mailer: e-mails the end user a confirmation message after a form has been submitted.
+For recipient mail address, it uses the first valid email value from the form.]]>
+	</description>
+	<authors>
+		<author>
+			<name><![CDATA[Bart Lagerweij (webleads)]]></name>
+			<url><![CDATA[https://github.com/bart-lysander/form-builder-mailer]]></url>
+		</author>
+	</authors>
+    <events>
+        <event application="backend" name="after_saved_settings"><![CDATA[Triggered when the settings are saved.]]></event>
+    </events>
+</module>

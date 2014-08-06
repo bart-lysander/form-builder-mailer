@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<locale>
+    <backend>
+        <form_builder_mailer>
+            <item type="label" name="AddData">
+                <translation language="en"><![CDATA[add data]]></translation>
+                <translation language="nl"><![CDATA[voeg data toe]]></translation>
+            </item>
+            <item type="label" name="DataLabel">
+                <translation language="en"><![CDATA[Mailer]]></translation>
+                <translation language="nl"><![CDATA[Mailer]]></translation>
+            </item>
+            <item type="label" name="Enabled">
+                <translation language="en"><![CDATA[enabled]]></translation>
+                <translation language="nl"><![CDATA[ingeschakeld]]></translation>
+            </item>
+            <item type="label" name="Greetings">
+                <translation language="en"><![CDATA[With kind regards]]></translation>
+                <translation language="nl"><![CDATA[Met vriendelijke groet]]></translation>
+            </item>
+            <item type="label" name="Log">
+                <translation language="en"><![CDATA[write message to log]]></translation>
+                <translation language="nl"><![CDATA[schrijf bericht naar log]]></translation>
+            </item>
+            <item type="label" name="ModuleEnabled">
+                <translation language="en"><![CDATA[module enabled]]></translation>
+                <translation language="nl"><![CDATA[module inschakelen]]></translation>
+            </item>
+            <item type="label" name="ReceivedData">
+                <translation language="en"><![CDATA[data received]]></translation>
+                <translation language="nl"><![CDATA[ontvangen gegevens]]></translation>
+            </item>
+            <item type="label" name="Subject">
+                <translation language="en"><![CDATA[Your messae regarding "%s" has been received]]></translation>
+                <translation language="nl"><![CDATA[Uw bericht betreffende "%s" is ontvangen]]></translation>
+            </item>
+            <item type="message" name="HelpAddData">
+                <translation language="en"><![CDATA[Add an extra &quot;status&quot; field to the form data]]></translation>
+                <translation language="nl"><![CDATA[Voeg een extra &quot;status&quot; veld toe aan de formulier data]]></translation>
+            </item>
+            <item type="message" name="HelpEnabled">
+                <translation language="en"><![CDATA[Switch module on or off]]></translation>
+                <translation language="nl"><![CDATA[Schakel de module in of uit]]></translation>
+            </item>
+            <item type="message" name="HelpLog">
+                <translation language="en"><![CDATA[Add a notice message to the log (default: %site.path_www%/app/logs/logs.log)]]></translation>
+                <translation language="nl"><![CDATA[Voeg een notice bericht toe aan de log (standaard: %site.path_www%/app/logs/logs.log)]]></translation>
+            </item>
+        </form_builder_mailer>
+        <core>
+            <item type="label" name="FormBuilderMailer">
+                <translation language="en"><![CDATA[Form Builder Mailer]]></translation>
+                <translation language="nl"><![CDATA[Form Builder Mailer]]></translation>
+            </item>
+        </core>
+    </backend>
+</locale>
