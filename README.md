@@ -10,7 +10,7 @@ This module depends on [the form_builder module](http://www.fork-cms.com/extensi
 
 ## Versions
 
-* Version 2.x.x will work on ForkCMS 3.7.x (not ready yet)
+* Version 2.x.x will work on ForkCMS 3.7.x (use ForkCMS 3.7.4 or higher)
 * Version 1.x.x will work on ForkCMS 3.6.x
 
 ## Download
@@ -37,6 +37,7 @@ If it does not work, what can I check?
 
 * Check if the module is enabled (settings)
 * Check if the form has an email field for the end users email address
+* Check if the form has "Method" set to the option "store in database and send email"
 * Enable the log option in settings, submit a form and check the log file (default: %site.path_www%/app/logs/logs.log)
 
 ## Support

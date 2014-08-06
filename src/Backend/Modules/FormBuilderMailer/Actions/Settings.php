@@ -20,53 +20,51 @@ use Backend\Core\Engine\Model as BackendModel;
  */
 class Settings extends BackendBaseActionEdit
 {
-	/**
-	 * Execute the action
-	 */
-	public function execute()
-	{
-		parent::execute();
-		$this->loadForm();
-		$this->validateForm();
-		$this->parse();
-		$this->display();
-	}
+    /**
+     * Execute the action
+     */
+    public function execute()
+    {
+        parent::execute();
+        $this->loadForm();
+        $this->validateForm();
+        $this->parse();
+        $this->display();
+    }
 
-	/**
-	 * Loads the settings form
-	 */
-	private function loadForm()
-	{
-		$this->frm = new BackendForm('settings');
+    /**
+     * Loads the settings form
+     */
+    private function loadForm()
+    {
+        $this->frm = new BackendForm('settings');
 
-		$this->frm->addCheckbox('enabled', BackendModel::getModuleSetting($this->URL->getModule(), 'enabled', false));
-		$this->frm->addCheckbox('log', BackendModel::getModuleSetting($this->URL->getModule(), 'log', true));
-		$this->frm->addCheckbox('add_data', BackendModel::getModuleSetting($this->URL->getModule(), 'add_data', true));
-	}
+        $this->frm->addCheckbox('enabled', BackendModel::getModuleSetting($this->URL->getModule(), 'enabled', false));
+        $this->frm->addCheckbox('log', BackendModel::getModuleSetting($this->URL->getModule(), 'log', true));
+        $this->frm->addCheckbox('add_data', BackendModel::getModuleSetting($this->URL->getModule(), 'add_data', true));
+    }
 
-	/**
-	 * Validates the settings form
-	 */
-	private function validateForm()
-	{
-		if($this->frm->isSubmitted())
-		{
-			if($this->frm->isCorrect())
-			{
+    /**
+     * Validates the settings form
+     */
+    private function validateForm()
+    {
+        if ($this->frm->isSubmitted()) {
+            if ($this->frm->isCorrect()) {
                 $enabled = (bool)$this->frm->getField('enabled')->getValue();
-				BackendModel::setModuleSetting($this->URL->getModule(), 'enabled', $enabled);
+                BackendModel::setModuleSetting($this->URL->getModule(), 'enabled', $enabled);
                 if ($enabled) {
                     BackendModel::subscribeToEvent(
-                        'form_builder',
+                        'Formbuilder',
                         'after_submission',
-                        'form_builder_mailer',
-                        array('BackendFormBuilderMailerModel', 'afterFormSubmission')
+                        'FormBuilderMailer',
+                        array('\Backend\Modules\FormBuilderMailer\Engine\Model', 'afterFormSubmission')
                     );
                 } else {
                     BackendModel::unsubscribeFromEvent(
-                        'form_builder',
+                        'Formbuilder',
                         'after_submission',
-                        'form_builder_mailer'
+                        'FormBuilderMailer'
                     );
                 }
                 BackendModel::setModuleSetting(
@@ -80,10 +78,10 @@ class Settings extends BackendBaseActionEdit
                     (bool)$this->frm->getField('add_data')->getValue()
                 );
 
-				BackendModel::triggerEvent($this->getModule(), 'after_saved_settings');
+                BackendModel::triggerEvent($this->getModule(), 'after_saved_settings');
 
-				$this->redirect(BackendModel::createURLForAction('settings') . '&report=saved');
-			}
-		}
-	}
+                $this->redirect(BackendModel::createURLForAction('settings') . '&report=saved');
+            }
+        }
+    }
 }

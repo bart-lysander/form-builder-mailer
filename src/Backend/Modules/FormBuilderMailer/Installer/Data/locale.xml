@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <locale>
-    <backend>
-        <form_builder_mailer>
+    <Backend>
+        <FormBuilderMailer>
             <item type="label" name="AddData">
                 <translation language="en"><![CDATA[add data]]></translation>
                 <translation language="nl"><![CDATA[voeg data toe]]></translation>
@@ -46,12 +46,12 @@
                 <translation language="en"><![CDATA[Add a notice message to the log (default: %site.path_www%/app/logs/logs.log)]]></translation>
                 <translation language="nl"><![CDATA[Voeg een notice bericht toe aan de log (standaard: %site.path_www%/app/logs/logs.log)]]></translation>
             </item>
-        </form_builder_mailer>
-        <core>
+        </FormBuilderMailer>
+        <Core>
             <item type="label" name="FormBuilderMailer">
                 <translation language="en"><![CDATA[Form Builder Mailer]]></translation>
                 <translation language="nl"><![CDATA[Form Builder Mailer]]></translation>
             </item>
-        </core>
-    </backend>
+        </Core>
+    </Backend>
 </locale>

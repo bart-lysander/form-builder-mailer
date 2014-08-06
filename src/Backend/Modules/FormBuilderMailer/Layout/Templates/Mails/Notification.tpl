@@ -1,6 +1,6 @@
-{include:head_part1.tpl}
+{include:/FormBuilderMailer/Layout/Templates/Mails/HeadPart1.tpl}
 <title>{$title}</title>
-{include:head_part2.tpl}
+{include:/FormBuilderMailer/Layout/Templates/Mails/HeadPart2.tpl}
 
 <h2>{$title}</h2>
 <hr/>
@@ -13,4 +13,4 @@
     {$fields|nl2br}
 </p>
 
-{include:footer.tpl}
+{include:/FormBuilderMailer/Layout/Templates/Mails/Footer.tpl}

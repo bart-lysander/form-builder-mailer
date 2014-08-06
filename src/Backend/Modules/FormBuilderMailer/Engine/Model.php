@@ -11,8 +11,9 @@ namespace Backend\Modules\FormBuilderMailer\Engine;
 
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Engine\Language as BL;
+use Backend\Modules\FormBuilder\Engine\Model as BackendFormBuilderModel;
+use Common\Mailer;
 use SpoonDatabase;
-use SpoonFilter;
 
 /**
  * In this file we store all generic functions that we will be using in the Form Builder Mailer module
@@ -21,29 +22,29 @@ use SpoonFilter;
  */
 class Model
 {
-    const MODULE_NAME = 'form_builder_mailer';
+    const MODULE_NAME = 'FormBuilderMailer';
 
     /**
      * @param $params
      */
     public static function afterFormSubmission($params)
     {
-        $form_id = isset($params['form_id']) ? $params['form_id'] : null;
-        if ($form_id) {
-            $data_id = isset($params['data_id']) ? $params['data_id'] : null;
-            if ($data_id) {
+        $formId = isset($params['form_id']) ? $params['form_id'] : null;
+        if ($formId) {
+            $dataId = isset($params['data_id']) ? $params['data_id'] : null;
+            if ($dataId) {
                 $visitorId = isset($params['visitorId']) ? $params['visitorId'] : null;
                 if ($visitorId) {
                     $postedFields = isset($params['fields']) ? $params['fields'] : null;
                     if ($postedFields) {
-                        $form = BackendFormBuilderModel::get($form_id);
+                        $form = BackendFormBuilderModel::get($formId);
                         if (!empty($form)) {
                             if (isset($form['method']) && $form['method'] == 'database_email') {
                                 foreach ($postedFields as $field) {
                                     $value = isset($field['value']) ? unserialize($field['value']) : null;
                                     if ($value) {
                                         if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                                            self::mailEndUser($value, $postedFields, $form, $data_id);
+                                            self::mailEndUser($value, $postedFields, $form, $dataId);
                                             return;
                                         }
                                     }
@@ -60,8 +61,9 @@ class Model
      * @param $email
      * @param $postedFields
      * @param $form
+     * @param $dataId
      */
-    private static function mailEndUser($email, $postedFields, $form, $data_id)
+    public static function mailEndUser($email, $postedFields, $form, $dataId)
     {
         $field_info = '';
         foreach ($postedFields as $field) {
@@ -70,7 +72,7 @@ class Model
             $field_info .= $label . ': ' . $value . "\n";
         }
 
-        $title = sprintf(BackendLanguage::getLabel('Subject', self::MODULE_NAME), $form['name']);
+        $title = sprintf(BL::getLabel('Subject', self::MODULE_NAME), $form['name']);
         $data = array(
             'title' => $title,
             'fields' => $field_info,
@@ -81,15 +83,22 @@ class Model
             'Greetings',
         );
         foreach ($translations as $translation) {
-            $data[$translation] = BackendLanguage::getLabel($translation, self::MODULE_NAME);
+            $data[$translation] = BL::getLabel($translation, self::MODULE_NAME);
         }
 
-        $result = BackendMailer::addEmail(
-            $title,
-            BACKEND_MODULES_PATH . '/form_builder_mailer/layout/templates/mails/notification.tpl',
-            $data,
-            $email
-        );
+        /** @var $mailer Mailer */
+        $mailer = BackendModel::get('mailer');
+        if ($mailer) {
+            // @TODO remove this when https://github.com/forkcms/forkcms/issues/716 is fixed.
+            define('FRONTEND_LANGUAGE', SITE_DEFAULT_LANGUAGE); // work around
+
+            $result = $mailer->addEmail(
+                $title,
+                BACKEND_MODULES_PATH . '/'.self::MODULE_NAME.'/Layout/Templates/Mails/Notification.tpl',
+                $data,
+                $email
+            );
+        }
         $useLog = BackendModel::getModuleSetting(self::MODULE_NAME, 'log', true);
         if ($useLog) {
             $logger = BackendModel::get('logger');
@@ -98,17 +107,16 @@ class Model
             }
         }
         $addExtraData = BackendModel::getModuleSetting(self::MODULE_NAME, 'add_data', true);
-        $error = BackendLanguage::getLabel('Error', self::MODULE_NAME);
-        $success = BackendLanguage::getLabel('OK', self::MODULE_NAME);
+        $error = BL::getLabel('Error', self::MODULE_NAME);
+        $success = BL::getLabel('OK', self::MODULE_NAME);
         if ($addExtraData) {
-            _debug($form);
-            $label = BackendLanguage::getLabel('DataLabel', self::MODULE_NAME);
+            $label = BL::getLabel('DataLabel', self::MODULE_NAME);
             $item = array(
-                'data_id' => $data_id,
+                'data_id' => $dataId,
                 'label' => $label,
                 'value' => serialize($email . ' - ' . ($result ? $success : $error)),
             );
-            _debug($item);
+            /** @var $db SpoonDatabase */
             $db = BackendModel::getContainer()->get('database');
             $db->insert('forms_data_fields', $item);
         }

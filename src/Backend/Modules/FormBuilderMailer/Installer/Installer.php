@@ -9,6 +9,7 @@ namespace Backend\Modules\FormBuilderMailer\Installer;
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Model as BackendModel;
 use Backend\Core\Installer\ModuleInstaller;
 
 /**
@@ -18,28 +19,28 @@ use Backend\Core\Installer\ModuleInstaller;
  */
 class Installer extends ModuleInstaller
 {
-	public function install()
-	{
-		// install the module in the database
-		$this->addModule('form_builder_mailer');
+    public function install()
+    {
+        // install the module in the database
+        $this->addModule('FormBuilderMailer');
 
-		// install the locale, this is set here because we need the module for this
-		$this->importLocale(dirname(__FILE__) . '/Data/locale.xml');
+        // install the locale, this is set here because we need the module for this
+        $this->importLocale(dirname(__FILE__) . '/Data/locale.xml');
 
-		$this->setModuleRights(1, 'form_builder_mailer');
-        $this->setActionRights(1, 'form_builder_mailer', 'Settings');
+        $this->setModuleRights(1, 'FormBuilderMailer');
+        $this->setActionRights(1, 'FormBuilderMailer', 'Settings');
 
         // settings navigation
         $navigationSettingsId = $this->setNavigation(null, 'Settings');
         $navigationModulesId = $this->setNavigation($navigationSettingsId, 'Modules');
         $this->setNavigation($navigationModulesId, 'FormBuilderMailer', 'form_builder_mailer/settings');
 
-        BackendModel::setModuleSetting('form_builder_mailer', 'enabled', true);
+        BackendModel::setModuleSetting('FormBuilderMailer', 'enabled', true);
         BackendModel::subscribeToEvent(
-            'FormBuilder',
+            'Formbuilder',
             'after_submission',
             'FormBuilderMailer',
-            array('Backend\Modules\FormBuilderMailer\Model', 'afterFormSubmission')
+            array('Backend\Modules\FormBuilderMailer\Engine\Model', 'afterFormSubmission')
         );
-	}
+    }
 }
