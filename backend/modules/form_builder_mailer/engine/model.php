@@ -21,7 +21,6 @@ class BackendFormBuilderMailerModel
      */
     public static function afterFormSubmission($params)
     {
-        _debug($params);
         $form_id = isset($params['form_id']) ? $params['form_id'] : null;
         if ($form_id) {
             $data_id = isset($params['data_id']) ? $params['data_id'] : null;
@@ -95,14 +94,12 @@ class BackendFormBuilderMailerModel
         $error = BackendLanguage::getLabel('Error', self::MODULE_NAME);
         $success = BackendLanguage::getLabel('OK', self::MODULE_NAME);
         if ($addExtraData) {
-            _debug($form);
             $label = BackendLanguage::getLabel('DataLabel', self::MODULE_NAME);
             $item = array(
                 'data_id' => $data_id,
                 'label' => $label,
                 'value' => serialize($email . ' - ' . ($result ? $success : $error)),
             );
-            _debug($item);
             $db = BackendModel::getContainer()->get('database');
             $db->insert('forms_data_fields', $item);
         }
