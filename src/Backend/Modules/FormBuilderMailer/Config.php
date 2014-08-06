@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\FormBuilderMailer;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -7,19 +9,21 @@
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Base\Config as BackendBaseConfig;
+
 /**
  * This is the configuration-object for the Form Builder Mailer module
  *
  * @author webleads <fork@webleads.nl>
  */
-final class BackendFormBuilderMailerConfig extends BackendBaseConfig
+class Config extends BackendBaseConfig
 {
 	/**
 	 * The default action
 	 *
 	 * @var string
 	 */
-	protected $defaultAction = 'index';
+	protected $defaultAction = 'Index';
 
 	/**
 	 * The disabled actions

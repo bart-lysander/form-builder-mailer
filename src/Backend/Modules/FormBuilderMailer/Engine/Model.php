@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\FormBuilderMailer\Engine;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -7,12 +9,17 @@
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Model as BackendModel;
+use Backend\Core\Engine\Language as BL;
+use SpoonDatabase;
+use SpoonFilter;
+
 /**
  * In this file we store all generic functions that we will be using in the Form Builder Mailer module
  *
  * @author webleads <fork@webleads.nl>
  */
-class BackendFormBuilderMailerModel
+class Model
 {
     const MODULE_NAME = 'form_builder_mailer';
 
@@ -21,7 +28,6 @@ class BackendFormBuilderMailerModel
      */
     public static function afterFormSubmission($params)
     {
-        _debug($params);
         $form_id = isset($params['form_id']) ? $params['form_id'] : null;
         if ($form_id) {
             $data_id = isset($params['data_id']) ? $params['data_id'] : null;

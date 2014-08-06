@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\FormBuilderMailer\Installer;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -7,12 +9,14 @@
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Installer\ModuleInstaller;
+
 /**
  * Installer for the Form Builder Mailer module
  *
  * @author webleads <fork@webleads.nl>
  */
-class FormBuilderMailerInstaller extends ModuleInstaller
+class Installer extends ModuleInstaller
 {
 	public function install()
 	{
@@ -20,10 +24,10 @@ class FormBuilderMailerInstaller extends ModuleInstaller
 		$this->addModule('form_builder_mailer');
 
 		// install the locale, this is set here because we need the module for this
-		$this->importLocale(dirname(__FILE__) . '/data/locale.xml');
+		$this->importLocale(dirname(__FILE__) . '/Data/locale.xml');
 
 		$this->setModuleRights(1, 'form_builder_mailer');
-        $this->setActionRights(1, 'form_builder_mailer', 'settings');
+        $this->setActionRights(1, 'form_builder_mailer', 'Settings');
 
         // settings navigation
         $navigationSettingsId = $this->setNavigation(null, 'Settings');
@@ -32,10 +36,10 @@ class FormBuilderMailerInstaller extends ModuleInstaller
 
         BackendModel::setModuleSetting('form_builder_mailer', 'enabled', true);
         BackendModel::subscribeToEvent(
-            'form_builder',
+            'FormBuilder',
             'after_submission',
-            'form_builder_mailer',
-            array('BackendFormBuilderMailerModel', 'afterFormSubmission')
+            'FormBuilderMailer',
+            array('Backend\Modules\FormBuilderMailer\Model', 'afterFormSubmission')
         );
 	}
 }

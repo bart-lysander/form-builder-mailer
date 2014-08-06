@@ -1,5 +1,7 @@
 <?php
 
+namespace Backend\Modules\FormBuilderMailer\Actions;
+
 /*
  * This file is part of Fork CMS.
  *
@@ -7,12 +9,16 @@
  * file that was distributed with this source code.
  */
 
+use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
+use Backend\Core\Engine\Form as BackendForm;
+use Backend\Core\Engine\Model as BackendModel;
+
 /**
  * This is the settings-action, it will display a form to set general settings
  *
  * @author webleads <fork@webleads.nl>
  */
-class BackendFormBuilderMailerSettings extends BackendBaseActionEdit
+class Settings extends BackendBaseActionEdit
 {
 	/**
 	 * Execute the action
