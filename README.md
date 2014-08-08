@@ -25,7 +25,7 @@ Visit the [Fork CMS Documentation](http://www.fork-cms.com/community/documentati
 
 * You can enable/disable the mailer using the module settings page.
 * You can enable/disable logging to the default log handler using the module settings page. (default: %site.path_www%/app/logs/logs.log)
-* You can enable/disable adding an extra form data field using the module settings page. You can see this field in the Formbuilder data details or export. It shows the email address uses to send a notification and a short status.
+* You can enable/disable adding an extra form data field using the module settings page. You can see this field in the Formbuilder data details or export. It shows the email address used to send a notification and a short status.
 
 ## Improvements
 
